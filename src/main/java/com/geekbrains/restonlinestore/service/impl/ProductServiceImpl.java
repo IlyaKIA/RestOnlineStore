@@ -1,5 +1,6 @@
 package com.geekbrains.restonlinestore.service.impl;
 
+import com.geekbrains.restonlinestore.annotation.ToLog;
 import com.geekbrains.restonlinestore.domain.Product;
 import com.geekbrains.restonlinestore.dto.ProductSaveDto;
 import com.geekbrains.restonlinestore.dto.ProductViewDto;
@@ -8,6 +9,7 @@ import com.geekbrains.restonlinestore.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +22,9 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    @ToLog
     @Override
+    @Transactional
     public List<ProductViewDto> getProducts() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
@@ -28,7 +32,9 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
+    @ToLog
     @Override
+    @Transactional
     public ProductViewDto saveProduct(ProductSaveDto product) {
         Product newProduct = modelMapper.map(product, Product.class);
         Product ProductEntity = productRepository.save(newProduct);
@@ -39,7 +45,9 @@ public class ProductServiceImpl implements ProductService {
                 .build();
     }
 
+    @ToLog
     @Override
+    @Transactional
     public List<ProductViewDto> getProductsByPriceBetween(Integer minPrice, Integer maxPrice) {
         List<Product> productList = productRepository.findProductsByPriceBetween(minPrice, maxPrice);
         return productList.stream()
