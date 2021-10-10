@@ -1,23 +1,28 @@
-#server:
-#  port: 80
+server:
+  port: 80
 spring:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/rest-online-store
-#    username: postgres
-#    password: postgrespass
-#  jpa:
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format-sql: true
-#  application:
-#    name: rest-online-shop-backend
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/rest-online-store
+    username: postgres
+    password: postgrespass
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+  application:
+    name: rest-online-shop-backend
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 #eureka:
 #  client:
 #    serviceUrl:
 #      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 #  instance:
 #    preferIpAddress: true
-  config:
-    import: optional:configserver:http://localhost:8888
+#  config:
+#    import: optional:configserver:http://localhost:8888
